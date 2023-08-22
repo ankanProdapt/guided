@@ -1,0 +1,46 @@
+<html>
+<head>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .reading {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            width: 100px;
+            height: 40px;
+            background-color: rgb(230, 97, 0);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span th:text="${reading}">12345</span>
+        <h1>
+        <div class="buttons">
+            <form action="odometer" method="post">
+                <input type="submit" value="Prev" class="button">
+            </form>
+            <form action="odometer" method="post">
+                <input type="submit" value="Next" class="button">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
