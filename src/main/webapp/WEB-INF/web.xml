@@ -59,4 +59,14 @@
     <servlet-name>HiLoServlet</servlet-name>
     <url-pattern>/HiLoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MangataServlet</display-name>
+    <servlet-name>MangataServlet</servlet-name>
+    <servlet-class>com.learning.hello.MangataServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MangataServlet</servlet-name>
+    <url-pattern>/MangataServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

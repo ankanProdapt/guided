@@ -8,16 +8,22 @@ public class OdometerController {
 
 	public OdometerController(int size) {
 
-		if (size < 1 || size > 9) {
-			System.out.println("Invalid Length");
-			return;
+		if (size < 1) {
+			size = 1;
+		}
+		if(size > 9) {
+			size = 9;
 		}
 
 		reading = Integer.valueOf(DIGITS.substring(0, size));
 	}
 	
+	public void resize(int size) {
+		reading = getMinReading(size);
+	}
+	
 	public void reset() {
-		reading = 12345;
+		reading = getMinReading(getSize());
 	}
 
 	public int getSize() {
@@ -35,7 +41,7 @@ public class OdometerController {
 	public static int getMaxReading(int size) {
 		if (size == 0)
 			return 0;
-		return Integer.valueOf(DIGITS.substring(size - 1));
+		return Integer.valueOf(DIGITS.substring(9 - size, 9));
 	}
 
 	public static int getMinReading(int size) {

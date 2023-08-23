@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+body {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: lightblue;
+}
+
+.largeBox {
+	background-color: white;
+	width: 320px;
+	height: 600px;
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+}
+
+#positions {
+	display: flex;
+	flex-direction: row;
+}
+
+#Deck {
+	width: 100px;
+	height: 150px;
+	border: 1px solid black;
+	margin: 10px;
+	background-color: lightgreen;
+}
+
+#inPile,
+#outPile {
+	width: 100px;
+	height: 150px;
+	border: 1px solid black;
+	margin: 10px;
+	background-color: lightgreen;
+}

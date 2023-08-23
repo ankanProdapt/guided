@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Mangata</title>
+	<link rel="stylesheet" href="/webProject/static/styles.css" </head>
+
+<body>
+	<div class="largeBox">
+		<div id="Deck">
+			Deck
+		</div>
+		<div th:text="${winner}"></div>
+		<br>
+		<div id="positions">
+			<div id="inPile">
+				<span th:text="${In}">IN</span>
+			</div>
+			<div id="outPile">
+				<span th:text="${Out}">OUT</span>
+			</div>
+		</div>
+		<form method="post" action="mangata">
+			<input id="next" type="submit" name="btn" value="next">
+		</form>
+		<div id="players">
+			<h3>Players:</h3>
+			<ul>
+				<li th:each="player : ${players}">
+					<span th:text="${player}"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="largeBox">
+		<form method="post" action="mangata">
+			<label for="playerName">Player Name: </label>
+			<input type="text" name="playerName">
+			<br>
+
+
+			<label for="bet">Bet Amount: </label>
+			<input type="number" name="bet" min="5" max="1000">
+			<br>
+
+			<p>Choose Your Card:</p>
+			<label for="suit">Suit: </label>
+			<select name="suit" id="suit">
+				<option value="H">Hearts</option>
+				<option value="D">Diamonds</option>
+				<option value="C">Clubs</option>
+				<option value="S">Spades</option>
+			</select>
+
+			<label for="rank">Rank: </label>
+			<select name="rank" id="rank">
+				<option value="A">Ace</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="T">10</option>
+				<option value="J">Jack</option>
+				<option value="Q">Queen</option>
+				<option value="K">King</option>
+			</select>
+
+			<br>
+			<label for="position">Select Position</label> <br>
+			<input type="radio" name="position" value="In"> <label for="IN">In</label>
+			<input type="radio" name="position" value="Out"> <label for="OUT">Out</label> <br>
+
+			<input name="btn" type="submit" value="Add To Game">
+
+			<input name="btn" type="submit" value="Start Game">
+		</form>
+	</div>
+</body>
+
+</html>

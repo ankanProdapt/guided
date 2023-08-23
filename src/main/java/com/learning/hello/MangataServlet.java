@@ -9,7 +9,7 @@ import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
-import com.learning.hello.contoller.OdometerController;
+import com.learning.hello.contoller.MangataController;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -18,18 +18,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/odometer")
-public class OdometerServlet extends HttpServlet {
+@WebServlet("/mangata")
+public class MangataServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private OdometerController oc;
+	private MangataController mc = new MangataController();
 	private JakartaServletWebApplication application;
 	private TemplateEngine templateEngine;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		oc = new OdometerController(5);
 		application = JakartaServletWebApplication.buildApplication(getServletContext());
 		final WebApplicationTemplateResolver templateResolver = new WebApplicationTemplateResolver(application);
 		templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -45,37 +44,40 @@ public class OdometerServlet extends HttpServlet {
 		final IWebExchange webExchange = this.application.buildExchange(req, resp);
 		final WebContext ctx = new WebContext(webExchange);
 		
-		String szStr = req.getParameter("resize");
-		
-		if(!szStr.equals("")) {
-			int sz = Integer.valueOf(szStr);
-			oc.resize(sz);
-			ctx.setVariable("reading", oc.getReading());
-			templateEngine.process("odometer", ctx, out);
-			return;
-		}
-		
 		String btn = req.getParameter("btn");
-		if(btn.equals("Prev")) {
-			oc.decrementReading();
-		}
-		else if(btn.equals("Next")){
-			oc.incrementReading();
-		}
-		else if(btn.equals("Reset")) {
-			oc.reset();
+		
+		if(btn.equals("Add To Game")) {
+			String playerName = req.getParameter("playerName");
+			int bet = Integer.valueOf(req.getParameter("bet"));
+			String abbr = req.getParameter("rank") + req.getParameter("suit");
+			String position = req.getParameter("position");
+			mc.addPlayer(playerName, bet, abbr, position);
 		}
 		
-		ctx.setVariable("reading", oc.getReading());
-		templateEngine.process("odometer", ctx, out);
+		else if(btn.equals("Start Game")) {
+			ctx.setVariable("In", "IN");
+			ctx.setVariable("Out", "OUT");
+		}
+		
+		else if(btn.equals("next")) {
+			mc.drawCard();
+			ctx.setVariable("In", mc.getInPileTop().toString());
+			ctx.setVariable("Out", mc.getOutPileTop().toString());
+			
+			ctx.setVariable("winner", mc.getResult());
+		}
+		
+		
+		//ctx.setVariable("reading", mc.getReading());
+		ctx.setVariable("players", mc.getPlayers());
+		templateEngine.process("mangata", ctx, out);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		final IWebExchange webExchange = this.application.buildExchange(req, resp);
 		final WebContext ctx = new WebContext(webExchange);
-		ctx.setVariable("reading", oc.getReading());
-		templateEngine.process("odometer", ctx, resp.getWriter());
+		templateEngine.process("mangata", ctx, resp.getWriter());
 	}
 
 }
