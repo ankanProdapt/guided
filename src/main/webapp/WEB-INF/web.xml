@@ -69,4 +69,15 @@
     <servlet-name>MangataServlet</servlet-name>
     <url-pattern>/MangataServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NoticeServlet</display-name>
+    <servlet-name>NoticeServlet</servlet-name>
+    <servlet-class>com.learning.hello.NoticeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NoticeServlet</servlet-name>
+    <url-pattern>/NoticeServlet</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

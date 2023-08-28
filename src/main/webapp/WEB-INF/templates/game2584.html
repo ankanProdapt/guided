@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2584 Game</title>
+	<link rel="stylesheet" href="/webProject/static/game2584Styles.css" </head>
+</head>
+
+<body>
+	<div class="head">
+		<h2>Welcome to 2584 Game!</h2>
+		<br>
+		<h2>Score: <span th:text="${score}">0</span>
+		</h2>
+		<br>
+		<h3>
+			<span th:text="${msg}"></span>
+		</h3>
+		<br>
+	</div>
+	<br>
+	<div class="board">
+		<div class="grid-container">
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell0}">0</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell1}">1</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell2}">2</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell3}">3</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell4}">4</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell5}">5</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell6}">6</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell7}">7</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell8}">8</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell9}">9</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell10}">10</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell11}">11</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell12}">12</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell13}">13</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell14}">14</span>
+				</p>
+			</div>
+			<div class="grid-item">
+				<p>
+					<span th:text="${cell15}">15</span>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="control">
+		<form action="game2584" method="post">
+			<input type="submit" name="btn" value="▲" class="up">
+			<br>
+			<br>
+			<input type="submit" name="btn" value="◀" class="left">
+			<input type="submit" name="btn" value="↺" class="reset">
+			<input type="submit" name="btn" value="▶" class="right">
+			<br>
+			<br>
+			<input type="submit" name="btn" value="▼" class="down">
+			<br>
+			<br>
+			<br>
+			<br>
+		</form>
+	</div>
+	<script>
+		const cellColors = {
+			1: '#eee4da',
+			2: '#ede0c8',
+			3: '#f2b179',
+			5: '#f59563',
+			8: '#f67c5f',
+			13: '#f65e3b',
+			21: '#edcf72',
+			34: '#edcc61',
+			55: '#edc850',
+			89: '#edc53f',
+			144: '#edc22e',
+			233: 'blue',
+			377: 'blue',
+			610: 'blue',
+			987: 'green',
+			1597: 'green',
+			2584: 'green'
+		};
+
+		
+		function updateCellColors() {
+			const cells = document.getElementsByClassName('grid-item');
+			for(let i = 0; i < cells.length; i++){
+				let x = parseInt([cells[i].getElementsByTagName("p")[0].getElementsByTagName("span")[0].innerText]);
+				if(x){
+					cells[i].style.background = cellColors[x];
+				}
+				else{
+					cells[i].style.background = "white";
+				}
+			}
+		}
+
+		updateCellColors();
+		
+		document.addEventListener("keydown", function (event) {
+			const btnMap = {
+				ArrowUp: "▲",
+				ArrowDown: "▼",
+				ArrowLeft: "◀",
+				ArrowRight: "▶"
+			};
+			const pressedButtonValue = btnMap[event.key];
+			if (pressedButtonValue) {
+				event.preventDefault();
+				const buttons = document.querySelectorAll(".control input[type='submit']");
+				buttons.forEach(button => {
+					if (button.value === pressedButtonValue) {
+						button.classList.add("highlight");
+						setTimeout(() => {
+							button.classList.remove("highlight");
+						}, 200);
+						button.click();
+					}
+				});
+			}
+		});
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<h1>Notice Board</h1>
+	<div id="box">
+		<div id="notices">
+			<ul>
+				<li th:each="notice : ${notices}">
+					<span th:text="${notice}"></span>
+				</li>
+			</ul>
+		</div>
+		<form method="post" action="notices">
+			<label for="title">Title: </label>
+			<input type="text" name="title">
+			<br>
+			<label for="content">Content: </label>
+			<input type="text" name="content">
+			<br>
+			<label for="name">Author: </label>
+			<input type="text" name="name">
+			<br>
+			<label for="phone">Mobile no: </label>
+			<input type="number" name="phone">
+			<br>
+			<input type="submit" name="btn" value="Submit">
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tennis</title>
+	<link rel="stylesheet" href="/webProject/static/tennis.css">
+</head>
+
+<body>
+	<div class="flex">
+		<div class="largeBox">
+			<h1>Tennis</h1>
+			<h3 th:text="${matchHeading}"></h3>
+			<form action="tennis" class="flex" method="post">
+				<input name="btn" type="submit" value="⏪︎">
+				<input name="btn" type="submit" value="◀">
+				<input name="btn" type="submit" value="▶">
+				<input name="btn" type="submit" value="⏩︎">
+			</form>
+			<table>
+				<tr>
+					<th>Player Name</th>
+					<th>Score</th>
+					<th>Games Won</th>
+					<th>Sets Won</th>
+				</tr>
+				<tr>
+					<td th:text="${p1Name}">p1Name</td>
+					<td th:text="${p1Score}">p1Score</td>
+					<td th:text="${p1GamesWon}">p1GamesWon</td>
+					<td th:text="${p1SetsWon}">p1SetsWon</td>
+				</tr>
+				<tr>
+					<td th:text="${p2Name}">p2Name</td>
+					<td th:text="${p2Score}">p2Score</td>
+					<td th:text="${p2GamesWon}">p2GamesWon</td>
+					<td th:text="${p2SetsWon}">p2SetsWon</td>
+				</tr>
+			</table>
+
+			<form action="tennis" class="flex" method="post">
+				<input name="btn" type="submit" value="🟨">
+				<input name="btn" type="submit" value="🟦">
+			</form>
+
+			<h5>Comment: <p th:text="${comment}">comment</p>
+			</h5>
+
+		</div>
+
+		<div class="largeBox">
+			<button id="newGameBtn" onclick="toggleForm('newGameBtn', 'newGame')">
+				Start New Match 🔽
+			</button>
+			<form action="tennis" method="post" hidden="true" id="newGame">
+				<div>
+					<div class="playerForm">
+						<label for="player1">Player 1:</label>
+						<input type="text" name="player1">
+					</div>
+					<div class="playerForm">
+						<label for="player2">Player 2:</label>
+						<input type="text" name="player2">
+					</div>
+				</div>
+				<br>
+				<input name="btn" type="submit" value="Start Recording" class="addLeftMargin">
+			</form>
+			<br><br><br>
+
+			<button id="prevMatchesBtn" onclick="toggleForm('prevMatchesBtn', 'prevMatches')">
+				Previous Matches 🔽
+			</button>
+			<form action="tennis" method="post" hidden="true" id="prevMatches">
+				<ul>
+					<li th:each="match : ${matches}">
+						<p hidden="true" th:text="${match}"></p>
+						<input name="btn" type="submit">
+					</li>
+				</ul>
+			</form>
+
+		</div>
+	</div>
+
+
+
+
+
+
+	<script>
+		function toggleForm(btnId, formId) {
+			let obj = document.getElementById(formId);
+			obj.hidden = !obj.hidden;
+
+			let btn = document.getElementById(btnId);
+			if (btn.innerText.includes("🔽")) {
+				btn.innerText = btn.innerText.slice(0, -2) + "🔼";
+			}
+			else {
+				btn.innerText = btn.innerText.slice(0, -2) + "🔽";
+			}
+		}
+		
+		let prevGamesForm = document.getElementById("prevMatches");
+		let p = prevGamesForm.getElementsByTagName("p");
+		let inp = prevGamesForm.getElementsByTagName("input");
+		
+		for(let i = 0; i < p.length; i++){
+			inp[i].value = "Match " + p[i].innerText;
+		}
+		
+	</script>
+</body>
+
+</html>
